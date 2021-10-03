@@ -9,7 +9,7 @@ module ServiceWorker
       def call(env)
         path_info = env.fetch("serviceworker.asset_name")
 
-        path = Webpacker.manifest.lookup(path_info)
+        path = URI(Webpacker.manifest.lookup(pack_file)).path
 
         if Webpacker.dev_server.running?
           proxy = Webpacker::DevServerProxy.new
